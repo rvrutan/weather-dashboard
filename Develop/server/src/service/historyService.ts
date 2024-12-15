@@ -1,4 +1,4 @@
-// TODO: Define a City class with name and id properties
+// Define a City class with name and id properties
 class City {
   name: string;
   id: string;
@@ -7,7 +7,7 @@ class City {
     this.id = id;
   }
 }
-// TODO: Complete the HistoryService class
+// Complete the HistoryService class
 class HistoryService {
   // TODO: Define a read method that reads from the searchHistory.json file
   // private async read() {}
