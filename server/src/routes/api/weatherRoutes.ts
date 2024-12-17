@@ -1,30 +1,31 @@
 import { Router, type Request, type Response } from 'express';
 const router = Router();
 
+//internall
 import HistoryService from '../../service/historyService.js';
-import weatherService from '../../service/weatherService';
-import historyService from '../../service/historyService.js';
+import WeatherService from '../../service/weatherService';
 
 // POST Request with city name to retrieve weather data
-router.post('/', (req: Request, res: Response) => {
+router.post('/', async (req: Request, res: Response) => {
   // GET weather data from city name
   // save city to search history
   const { city } = req.body;
-  if (!city) {
-    return res.status(400).send('City name is required.');
-  } 
-  weatherService.getWeatherForCity(city).then((weatherService) => {
-    return historyService.addCity(city).then(() => {
-      res.json({ message: `Weather data for ${city}`, data: weatherService });
-    });
-  })
-  .catch((error) => {
-    res.status(500).send(`Error retrieving weather data: ${error.message}`);
-  })
+ if (!city) {
+  return res.status(400).send('City name is required.');
+ } try {
+  const weatherData = await WeatherService.getWeatherForCity(city);
+  await HistoryService.addCity(city);
+  res.json({
+    message: `Weather data for ${city}`,
+    data: weatherData
+  });
+ } catch (error: any) {
+  res.status(500).send(`Error retrieving weather data: ${(error as Error).message || 'Unknown error'}`);
+ }
 });
 
 // GET search history
-router.get('/history', async (req: Request, res: Response) => {
+router.get('/history', async (__req: Request, res: Response) => {
   try {
     const savedCity = await HistoryService.getCities();
     res.json(savedCity);
@@ -40,12 +41,14 @@ router.delete('/history/:id', async (req: Request, res: Response) => {
     if (!req.params.id) {
       res.status(400).json({ msg: 'City id is required.'});
     }
-    await weatherService.removeCity(req.params.id);
+    await HistoryService.removeCity(req.params.id);
     res.json({ success: 'City successfully removed from search history.'});
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
   }
 });
+
+
 
 export default router;
