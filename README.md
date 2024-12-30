@@ -31,7 +31,7 @@ Contributions are welcome! Please follow these steps:
 To run test, execute the following commang: "npm test"
 
 ## Questions
-
 Contact me for any further questions;
+
   -Github: [rvrutan] (https://github.com/rvrutan)
   -Email: [rutanroni@gmail.com]
