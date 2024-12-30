@@ -33,5 +33,5 @@ To run test, execute the following commang: "npm test"
 ## Questions
 
 Contact me for any further questions;
--Github: [rvrutan] (https://github.com/rvrutan)
--Email: [rutanroni@gmail.com](mailto: rutanroni@gmail.com)
+  -Github: [rvrutan] (https://github.com/rvrutan)
+  -Email: [rutanroni@gmail.com]
