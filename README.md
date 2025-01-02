@@ -29,7 +29,7 @@ Contributions are welcome! Please follow these steps:
   5.  Open a pull request.
 
 ## Test
-To run test, execute the following commang: "npm test"
+To run test, execute the following command: "npm test"
 
 ## Questions
 Contact me for any further questions;
