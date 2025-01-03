@@ -6,17 +6,26 @@ import HistoryService from "../../service/historyService.js";
 import WeatherService from "../../service/weatherService.js";
 
 // POST Request with city name to retrieve weather data
-router.post('/', (req: Request, res: Response) => {
+router.post('/', async (req: Request, res: Response) => {
   try {
     const cityName = req.body.cityName;
 
-    WeatherService.getWeatherForCity(cityName).then((data) => {
-      HistoryService.addCity(cityName);
+    if (!cityName || typeof cityName !== "string") {
+      return res.status(400).json({ msg: "Invalid city name provided." });
+    }
 
-      res.json(data);
-    });
+    const data = await WeatherService.getWeatherForCity(cityName);
+
+    if (!data) {
+      return res.status(404).json({ msg: `City "${cityName}" not found.` });
+    }
+
+    await HistoryService.addCity(cityName);
+
+    return res.json(data); // Explicitly return the JSON response
   } catch (error) {
-    res.status(500).json(error);
+    console.error(error);
+    return res.status(500).json({ msg: "An error occurred while fetching weather data." });
   }
 });
 
