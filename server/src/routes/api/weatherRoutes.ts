@@ -10,7 +10,7 @@ router.post('/', async (req: Request, res: Response) => {
   try {
     const cityName = req.body.cityName;
 
-    if (!cityName || typeof cityName !== "string") {
+    if (!cityName) {
       return res.status(400).json({ msg: "Invalid city name provided." });
     }
 

@@ -62,17 +62,17 @@ class WeatherService {
   }
 
   // Create destructureLocationData method
-  // private destructureLocationData(locationData: Coordinates): Coordinates {
-  //   if (!locationData) {
-  //     throw new Error("Please pass in location");
-  //   }
-  //   const { lat, lon } = locationData;
-  //   const coordinates: Coordinates = {
-  //     lat,
-  //     lon,
-  //   };
-  //   return coordinates;
-  // }
+  private destructureLocationData(locationData: Coordinates): Coordinates {
+    if (!locationData) {
+      throw new Error("Location you're looking for doesn't exist, please put a valid city name.");
+    }
+    const { lat, lon } = locationData;
+    const coordinates: Coordinates = {
+      lat,
+      lon,
+    };
+    return coordinates;
+  }
 
   // Create buildGeocodeQuery method
   private buildGeocodeQuery(): string {
@@ -90,7 +90,7 @@ class WeatherService {
   // Create fetchAndDestructureLocationData method
   private async fetchAndDestructureLocationData() {
     return await this.fetchLocationData(this.buildGeocodeQuery()).then(
-      (data) => data
+      (data) => this.destructureLocationData(data)
     );
   }
 
