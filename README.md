@@ -28,9 +28,6 @@ Contributions are welcome! Please follow these steps:
   4.  Push to the branch: "git push origin feature/your-feature-name"
   5.  Open a pull request.
 
-## Test
-To run test, execute the following command: "npm test"
-
 ## Questions
 Contact me for any further questions;
 
